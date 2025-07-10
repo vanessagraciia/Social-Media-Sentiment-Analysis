@@ -1,0 +1,7 @@
+Mastodon.py
+tqdm
+requests
+flask
+vaderSentiment
+textblob
+redis

@@ -1,0 +1,55 @@
+rm specs/package-reddit-harvester-2.yaml
+rm specs/function-reddit-harvester-2.yaml
+chmod +x reddit-harvester-build.sh
+fission package create --spec --name reddit-harvester-2 \
+    --source ./__init__.py \
+    --source ./reddit_harvester.py \
+    --source ./reddit-harvester-requirements.txt \
+    --source ./reddit-harvester-build.sh \
+    --env python \
+    --buildcmd './reddit-harvester-build.sh'
+fission function create --spec --name reddit-harvester-2 \
+    --pkg reddit-harvester-2 \
+    --env python \
+    --secret reddit-secret \
+    --entrypoint "reddit_harvester.main"
+
+rm specs/package-reddit-processor-2.yaml
+rm specs/function-reddit-processor-2.yaml
+chmod +x reddit-processor-build.sh
+fission package create --spec --name reddit-processor-2 \
+    --source ./__init__.py \
+    --source ./reddit_processor.py \
+    --source ./reddit-processor-requirements.txt \
+    --source ./reddit-processor-build.sh \
+    --env python \
+    --buildcmd './reddit-processor-build.sh'
+fission function create --spec --name reddit-processor-2 \
+    --pkg reddit-processor-2 \
+    --env python \
+    --secret elastic-secret \
+    --entrypoint "reddit_processor.main"
+
+rm specs/package-data-unify-2.yaml
+rm specs/function-data-unify-2.yaml
+chmod +x data-unify-build.sh
+fission package create --spec --name data-unify-2 \
+    --source ./__init__.py \
+    --source ./data_unify.py \
+    --source ./data-unify-requirements.txt \
+    --source ./data-unify-build.sh \
+    --env python \
+    --buildcmd './data-unify-build.sh'
+fission function create --spec --name data-unify-2 \
+    --pkg data-unify-2 \
+    --env python \
+    --secret elastic-secret \
+    --entrypoint "data_unify.main"
+
+
+fission timer delete --name reddit-harvester-timer
+fission timer create --name reddit-harvester-timer --function reddit-harvester-2 --cron "@every 5m"
+fission spec apply --specdir specs --wait
+
+fission function update --name reddit-harvester-2 --fntimeout=300
+fission function test --name reddit-harvester-2 --timeout=5m0s

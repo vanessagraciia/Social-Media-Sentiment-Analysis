@@ -1,0 +1,4 @@
+flask
+vaderSentiment
+textblob
+elasticsearch8==8.14.0

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: default
+  name: mastodon-config
+data:
+  API_BASE_URL: https://mastodon.au
+  ACCESS_TOKEN: opI1B0CCCdU3cfyAeIFDYTkDXRibSnVh7RymTOaUcXA

@@ -1,0 +1,28 @@
+include:
+- ./__init__.py
+- ./reddit_harvester.py
+- ./reddit-harvester-requirements.txt
+- ./reddit-harvester-build.sh
+kind: ArchiveUploadSpec
+name: init---py-JKDG
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: reddit-harvester-2
+spec:
+  buildcmd: ./reddit-harvester-build.sh
+  deployment:
+    checksum: {}
+  environment:
+    name: python
+    namespace: ""
+  source:
+    checksum: {}
+    type: url
+    url: archive://init---py-JKDG
+status:
+  buildstatus: pending
+  lastUpdateTimestamp: "2025-05-15T12:40:22Z"

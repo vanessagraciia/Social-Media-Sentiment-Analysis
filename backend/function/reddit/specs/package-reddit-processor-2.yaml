@@ -1,0 +1,28 @@
+include:
+- ./__init__.py
+- ./reddit_processor.py
+- ./reddit-processor-requirements.txt
+- ./reddit-processor-build.sh
+kind: ArchiveUploadSpec
+name: init---py-aANm
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: reddit-processor-2
+spec:
+  buildcmd: ./reddit-processor-build.sh
+  deployment:
+    checksum: {}
+  environment:
+    name: python
+    namespace: ""
+  source:
+    checksum: {}
+    type: url
+    url: archive://init---py-aANm
+status:
+  buildstatus: pending
+  lastUpdateTimestamp: "2025-05-15T12:40:22Z"
