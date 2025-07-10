@@ -1,0 +1,20 @@
+{"query": {
+    "bool": {
+      "filter": [ {
+        "bool": {
+          "must": [ 
+            {"match": {"text": 
+                        {"query": "${term}",
+                        "fuzziness": 1}
+                      }},
+            {"match": {"source": "${platform}"}}
+          ]
+        }
+      }]
+    }
+  },
+  "aggs": {
+    "avg_sentiment": {"avg": {"field": "sentiment.compound"}},
+    "avg_subjectivity": {"avg": {"field": "sentiment.subjectivity"}}
+  }
+}

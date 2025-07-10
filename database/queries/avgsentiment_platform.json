@@ -1,0 +1,23 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+        "bool": {
+          "must": [
+            {"match": {"source": "${platform}"}},
+            {"range": {
+                "created_at": {
+                    "gte": "${date} 00:00:00",
+                    "lte": "${date} 23:59:59"
+                }
+            }}
+          ]
+        }}
+      ] 
+  }},
+  "aggs": {
+  "avg_sentiment": {"avg": {"field": "sentiment.compound"}},
+  "avg_subjectivity": {"avg": {"field": "sentiment.subjectivity"}}
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "size": "${data_size}",
+  "query": {
+    "bool": {"must": [
+        {"match": {"source": "${platform}"}},
+        {"match": {"text": 
+                    {"query": "${term}",
+                    "fuzziness": 1}
+                   }
+        }
+    ]}
+  },
+  "sort": [{"unique_id": "asc"}]
+}

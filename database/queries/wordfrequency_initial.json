@@ -1,0 +1,9 @@
+{
+  "size": "${data_size}",
+  "query": {
+    "match": {
+      "source": "${platform}"
+    }
+  },
+  "sort": [{"unique_id": "asc"}]
+}

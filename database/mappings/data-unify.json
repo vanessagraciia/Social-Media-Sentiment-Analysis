@@ -1,0 +1,28 @@
+{                  
+  "settings": {
+      "index": {
+        "number_of_shards":   3,
+        "number_of_replicas": 1
+      }
+    },
+    "mappings": {
+      "properties": {
+        "unique_id":   { "type": "keyword" },
+        "created_at":  {
+          "type":   "date",
+          "format": "dd-MM-yy HH:mm:ss"
+        },
+        "text":        { "type": "text" },
+        "sentiment": {
+          "properties": {
+            "negative":     { "type": "float" },
+            "neutral":      { "type": "float" },
+            "positive":     { "type": "float" },
+            "compound":     { "type": "float" },
+            "subjectivity": { "type": "float" }
+          }
+        },
+        "source":      { "type": "keyword" }
+      }
+    }
+  }
